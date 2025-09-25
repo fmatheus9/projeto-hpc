@@ -8,8 +8,29 @@
 #SBATCH --mem=2G
 #SBATCH --partition=cpu
 
-module load python/3.10 mpi
+echo "=== INICIANDO EXPERIMENTO NO SANTOS DUMONT ==="
+echo "Data: $(date)"
+echo "Host: $(hostname)"
+echo "Job ID: $SLURM_JOB_ID"
+echo "Processos: $SLURM_NTASKS"
+echo ""
 
-echo "Iniciando em $(date)"
-srun python3 src/main.py
-echo "Finalizado em $(date)"
+# Carrega módulos do SD
+module load python/3.10
+module load openmpi
+
+# Cria ambiente virtual (boas práticas)
+python -m venv venv_sd
+source venv_sd/bin/activate
+
+# Instala dependências
+pip install --upgrade pip
+pip install numpy mpi4py
+
+echo "=== EXECUTANDO EXPERIMENTO ==="
+srun python src/main.py
+
+echo ""
+echo "=== EXPERIMENTO CONCLUÍDO ==="
+echo "Data: $(date)"
+deactivate

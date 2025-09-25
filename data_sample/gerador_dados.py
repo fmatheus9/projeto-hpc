@@ -4,7 +4,7 @@ Gerador de dados sintéticos para o projeto Monte Carlo π
 Permite gerar conjuntos de dados de diferentes tamanhos para teste
 """
 
-import numpy as np
+import numpy as nps
 import argparse
 import time
 import json
